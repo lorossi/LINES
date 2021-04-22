@@ -1,11 +1,11 @@
 class Sketch extends Engine {
   setup() {
     // parameters
-    this._duration = 600;
+    this._duration = 900;
     this._items = 30;
     this._scl = 0.3;
     this._border = 0.4;
-    this._recording = false;
+    this._recording = true;
     this._show_fps = false;
     // sketch setup
     console.clear();
@@ -34,7 +34,7 @@ class Sketch extends Engine {
     const ampl = Math.PI * 0.125;
 
     // now, draw!
-    this.background("rgb(15, 15, 15)");
+    this.background("rgb(10, 10, 10)");
     this._ctx.globalCompositeOperation = "lighter";
 
     for (let i = 0; i < this._items; i++) {
