@@ -7,6 +7,7 @@ class Sketch extends Engine {
     this._border = 0.4;
     this._recording = false;
     this._show_fps = false;
+    this._random_saves = 0;
     // sketch setup
     console.clear();
     this._dPhi = Math.PI / this._items;
@@ -18,6 +19,9 @@ class Sketch extends Engine {
       this._capturer = new CCapture({ format: "png" });
       this._capturer_started = false;
     }
+    // setup random saves
+    this._save_frame = [];
+    for (let i = 0; i < this._random_saves; i++) this._save_frame.push(Math.floor(Math.random() * this._duration));
   }
 
   draw() {
@@ -58,6 +62,8 @@ class Sketch extends Engine {
 
       this._ctx.restore();
     }
+
+    if (this._save_frame.includes(this._frameCount)) this.saveFrame();
 
     // show FPS
     if (this._show_fps) {
