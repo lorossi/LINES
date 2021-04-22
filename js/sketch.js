@@ -5,7 +5,7 @@ class Sketch extends Engine {
     this._items = 30;
     this._scl = 0.3;
     this._border = 0.4;
-    this._recording = true;
+    this._recording = false;
     this._show_fps = false;
     // sketch setup
     console.clear();
