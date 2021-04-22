@@ -1,7 +1,7 @@
 class Sketch extends Engine {
   setup() {
     // parameters
-    this._duration = 900;
+    this._duration = 600;
     this._items = 30;
     this._scl = 0.3;
     this._border = 0.4;
