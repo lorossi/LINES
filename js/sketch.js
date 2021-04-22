@@ -9,7 +9,7 @@ class Sketch extends Engine {
     this._show_fps = false;
     // sketch setup
     console.clear();
-    this._dPhi = Math.PI / this._items * 1.3;
+    this._dPhi = Math.PI / this._items;
 
     this._w = (this._width * (1 - this._border)) / this._items;
     this._h = (this._height * (1 - this._border));
@@ -31,26 +31,30 @@ class Sketch extends Engine {
     const percent = (this._frameCount % this._duration) / this._duration;
     const dx = this._width * this._border / 2;
     const dy = this._height * this._border / 2;
-    const ampl = Math.PI / 10;
+    const ampl = Math.PI * 0.125;
 
     // now, draw!
-    this.background("#000000");
+    this.background("rgb(15, 15, 15)");
     this._ctx.globalCompositeOperation = "lighter";
 
     for (let i = 0; i < this._items; i++) {
+      const phi = this.ease(percent) * Math.PI * 2 + this._dPhi * i + Math.PI;
+      const dpos = 2;
+
       this._ctx.save();
       this._ctx.translate(dx + this._w * i, dy + this._h / 2);
-      this._ctx.rotate(Math.sin(phi(percent, i, this._dPhi)) * ampl);
+      this._ctx.rotate(Math.sin(phi) * ampl);
       // main rect
-      this._ctx.fillStyle = "#DCDCDC";
+      this._ctx.fillStyle = "rgb(220, 220, 220)";
       this._ctx.fillRect(0, -this._h / 2, this._w * this._scl, this._h);
+
       // chromatic aberration
-      this._ctx.fillStyle = "rgba(220, 0, 0, 127)";
-      this._ctx.fillRect(-1, - this._h / 2, this._w * this._scl, this._h);
-      this._ctx.fillStyle = "rgba(0, 220, 0, 127)";
-      this._ctx.fillRect(0, -1 - this._h / 2, this._w * this._scl, this._h);
-      this._ctx.fillStyle = "rgba(0, 0, 220, 127)";
-      this._ctx.fillRect(1, 0 - this._h / 2, this._w * this._scl, this._h);
+      this._ctx.fillStyle = "rgba(220, 0, 0, 0.25)";
+      this._ctx.fillRect(dpos, -this._h / 2, this._w * this._scl, this._h);
+      this._ctx.fillStyle = "rgba(0, 220, 0, 0.25)";
+      this._ctx.fillRect(-dpos, -this._h / 2, this._w * this._scl, this._h);
+      this._ctx.fillStyle = "rgba(0, 0, 220, 0.25)";
+      this._ctx.fillRect(0, dpos - this._h / 2, this._w * this._scl, this._h);
 
       this._ctx.restore();
     }
@@ -75,12 +79,8 @@ class Sketch extends Engine {
       }
     }
   }
+
+  ease(x) {
+    return -(Math.cos(Math.PI * x) - 1) / 2;
+  }
 }
-
-const ease = (x) => {
-  return -(Math.cos(Math.PI * x) - 1) / 2;
-};
-
-const phi = (x, i, dPhi) => {
-  return ease(x) * Math.PI * 2 + dPhi * i + Math.PI;
-};
