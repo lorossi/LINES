@@ -2,14 +2,14 @@ class Sketch extends Engine {
   setup() {
     // parameters
     this._duration = 600;
-    this._items = 20;
+    this._items = 30;
     this._scl = 0.3;
-    this._border = 0.35;
+    this._border = 0.4;
     this._recording = false;
     this._show_fps = false;
     // sketch setup
     console.clear();
-    this._dPhi = Math.PI / this._items;
+    this._dPhi = Math.PI / this._items * 1.3;
 
     this._w = (this._width * (1 - this._border)) / this._items;
     this._h = (this._height * (1 - this._border));
